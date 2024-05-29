@@ -8,10 +8,19 @@
   <body>
     <form>
       <div>
-        <label for="title">Enter your todo</label>
+        <label for="todo">Enter your todo</label>
         <input type="text" name="todo" id="todo" autofocus />
       </div>
       <button type="submit">Add</button>
     </form>
+
+    <script>
+      document.querySelector("form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const { value } = document.querySelector("input");
+        console.log(value);
+        window.electron.ipcRenderer.send("todo:add", value);
+      });
+    </script>
   </body>
 </html>

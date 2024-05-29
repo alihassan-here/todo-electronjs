@@ -7,5 +7,20 @@
   </head>
   <body>
     <h1>My Todos</h1>
+    <ul id="todos"></ul>
+    <script>
+      const { ipcRenderer } = window.electron;
+      const list = document.getElementById("todos");
+      ipcRenderer.on("todo:add", (event, todo) => {
+        const li = document.createElement("li");
+        const text = document.createTextNode(todo);
+        li.appendChild(text);
+        list.appendChild(li);
+      });
+
+      ipcRenderer.on("todo:clear", (event) => {
+        list.innerHTML = "";
+      });
+    </script>
   </body>
 </html>
